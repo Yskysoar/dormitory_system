@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @createTime 2023-06-22 22:53
  * @description 寝室楼相关业务的控制器
  */
+
 @Controller
 @RequestMapping("/building")
 public class BuildingController {

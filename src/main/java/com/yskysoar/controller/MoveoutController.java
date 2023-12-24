@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @createTime 2023-06-23 20:37
  * @description 迁出业务的控制器
  */
+
 @Controller
 @RequestMapping("/moveout")
 public class MoveoutController {

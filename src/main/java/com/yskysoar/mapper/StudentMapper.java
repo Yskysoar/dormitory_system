@@ -101,5 +101,4 @@ public interface StudentMapper {
      * @return 学生列表
      */
     public List<Student> findByDormitoryId(Integer id);
-
 }

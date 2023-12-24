@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * @author Yskysoar
  * @createTime 2023-06-23 20:51
- * @description
+ * @description 迁出信息的实体类
  */
 @Data
 public class Moveout {

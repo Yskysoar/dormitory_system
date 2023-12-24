@@ -8,6 +8,7 @@ import lombok.ToString;
  * @createTime 2023-06-19 10:06
  * @description 控制登录/注册的数据模型
  */
+
 @Data
 @ToString
 public class AccountDto<T> {

@@ -46,8 +46,8 @@ public class AccountServiceImpl implements AccountService {
                     if (!systemAdmin.getPassword().equals(accountForm.getPassword())) {
                         dto.setCode(-2);//密码错误
                     } else {//用户名和密码都正确
-                        dto.setCode(0);//登录成功
                         dto.setAdmin(systemAdmin);//设置管理员类型
+                        dto.setCode(0);//登录成功
                     }
                 }
                 break;

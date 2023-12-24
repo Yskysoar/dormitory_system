@@ -31,7 +31,7 @@
                             </select>
                         </div>
                         <div class="form-group" style="margin-left: 20px">
-                            <label for="value">值：</label>
+                            <label>值：</label>
                             <input type="text" class="form-control" name="value" placeholder="字段值" maxlength="12"
                                    style="width: 130px">
                         </div>
@@ -47,7 +47,7 @@
                                     data-target="#addUserModal">
 										<span style="margin-right: 5px" class="" aria-hidden="true">
 											<i class="fa fa-user-plus">添加学生信息</i>
-											</span>
+                                        </span>
                             </button>
                         </div>
                     </form>
@@ -105,6 +105,7 @@
                     </c:forEach>
                     </tbody>
                 </table>
+
                 <!-- add框示例（Modal） -->
                 <form method="post" action="/student/save" class="form-horizontal" style="margin-top: 0px" role="form"
                       id="form_data" style="margin: 20px;">
@@ -121,19 +122,7 @@
                                 <div class="modal-body">
                                     <form class="form-horizontal" role="form">
                                         <div class="form-group">
-                                            <label for="user_id" class="col-sm-3 control-label">寝室</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" name="dormitoryId">
-                                                    <c:forEach items="${dormitoryList}" var="dormitory">
-                                                        <option value="${dormitory.id}"
-                                                                class="dormitory">${dormitory.name}</option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="user_id" class="col-sm-3 control-label">学号</label>
+                                            <label class="col-sm-3 control-label">学号</label>
                                             <div class="col-sm-9">
                                                 <input type="text" required class="form-control" id="number"
                                                        name="number" value="" placeholder="请输入学号">
@@ -141,7 +130,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="user_id" class="col-sm-3 control-label">姓名</label>
+                                            <label class="col-sm-3 control-label">姓名</label>
                                             <div class="col-sm-9">
                                                 <input type="text" required class="form-control" id="name"
                                                        name="name" value="" placeholder="请输入姓名">
@@ -149,12 +138,23 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="user_id" class="col-sm-3 control-label">性别</label>
+                                            <label class="col-sm-3 control-label">性别</label>
                                             <div class="col-sm-9">
-                                                <input type="radio" checked value="男" class="gender"
-                                                       name="gender"> 男
-                                                &nbsp;&nbsp;&nbsp;<input type="radio" value="女" class="gender"
-                                                                         name="gender"> 女
+                                                <input type="radio" value="男" class="gender" name="gender"> 男
+                                                &nbsp;&nbsp;&nbsp;
+                                                <input type="radio" value="女" class="gender" name="gender"> 女
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">寝室</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" name="dormitoryId">
+                                                    <c:forEach items="${dormitoryList}" var="dormitory">
+                                                        <option value="${dormitory.id}"
+                                                                class="dormitory">${dormitory.name}</option>
+                                                    </c:forEach>
+                                                </select>
                                             </div>
                                         </div>
 
@@ -170,8 +170,8 @@
                 </form>
 
                 <!-- update框示例（Modal） -->
-                <form method="post" action="/student/update" class="form-horizontal" style="margin-top: 0px" role="form"
-                      id="form_data" style="margin: 20px;">
+                <form method="post" action="/student/update" class="form-horizontal" role="form"
+                      id="form_data" style="margin: 0 20px 20px 20px;">
                     <div class="modal fade" id="updateUserModal" tabindex="-1"
                          role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -186,17 +186,44 @@
                                     <form class="form-horizontal" role="form">
 
                                         <div class="form-group">
-                                            <label for="user_id" class="col-sm-3 control-label">ID</label>
+                                            <label class="col-sm-3 control-label">ID</label>
                                             <div class="col-sm-9">
                                                 <input type="text" readonly required class="form-control" id="id"
                                                        name="id">
                                             </div>
                                         </div>
 
+                                        <input type="hidden" id="oldDormitoryId" name="oldDormitoryId">
+
                                         <div class="form-group">
-                                            <label for="user_id" class="col-sm-3 control-label">寝室</label>
+                                            <label class="col-sm-3 control-label">学号</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" name="dormitoryId">
+                                                <input type="text" required class="form-control" id="number"
+                                                       name="number" value="" placeholder="请输入学号">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">姓名</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" required class="form-control" id="name"
+                                                       name="name" value="" placeholder="请输入姓名">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">性别</label>
+                                            <div class="col-sm-9">
+                                                <input type="radio" value="男" class="gender" name="gender"> 男
+                                                &nbsp;&nbsp;&nbsp;
+                                                <input type="radio" value="女" class="gender" name="gender"> 女
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">寝室</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control dormitory-select" name="dormitoryId">
                                                     <c:forEach items="${dormitoryList}" var="dormitory">
                                                         <option value="${dormitory.id}"
                                                                 class="dormitory">${dormitory.name}</option>
@@ -205,36 +232,8 @@
                                             </div>
                                         </div>
 
-                                        <input type="hidden" id="oldDormitoryId" name="oldDormitoryId">
-
                                         <div class="form-group">
-                                            <label for="user_id" class="col-sm-3 control-label">学号</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" required class="form-control" id="number"
-                                                       name="number" value="" placeholder="请输入学号">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="user_id" class="col-sm-3 control-label">姓名</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" required class="form-control" id="name"
-                                                       name="name" value="" placeholder="请输入姓名">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="user_id" class="col-sm-3 control-label">性别</label>
-                                            <div class="col-sm-9">
-                                                <input type="radio" checked value="男" class="gender"
-                                                       name="gender"> 男
-                                                &nbsp;&nbsp;&nbsp;<input type="radio" value="女" class="gender"
-                                                                         name="gender"> 女
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="user_id" class="col-sm-3 control-label">入住时间</label>
+                                            <label class="col-sm-3 control-label">入住时间</label>
                                             <div class="col-sm-9">
                                                 <input type="text" readonly class="form-control" id="time"
                                                        value="createTime">
@@ -296,14 +295,14 @@
 
 <script>
     $('#updateUserModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget)
-        var id = button.data('id')
-        var dormitoryId = button.data('dormitory-id')
-        var number = button.data('number')
-        var name = button.data('name')
-        var gender = button.data('gender')
-        var time = button.data('time')
-        var modal = $(this)
+        const button = $(event.relatedTarget);
+        const id = button.data('id');
+        const dormitoryId = button.data('dormitory-id');
+        const number = button.data('number');
+        const name = button.data('name');
+        const gender = button.data('gender');
+        const time = button.data('time');
+        const modal = $(this);
 
         modal.find('.modal-title').text('修改学生信息')
         modal.find('#id').val(id)
@@ -311,16 +310,27 @@
         modal.find('#name').val(name)
         modal.find('#time').val(time)
         modal.find('#oldDormitoryId').val(dormitoryId)
-        var list = modal.find('.gender')
+        const list = modal.find('.gender');
         for (var i = 0; i < list.length; i++) {
             if (gender === $(list.get(i)).val()) {
                 $(list.get(i)).prop('checked', true)
-            }
-        }
-        var list2 = modal.find('.dormitory')
-        for (var i = 0; i < list2.length; i++) {
-            if (dormitoryId === $(list2.get(i)).val()) {
-                $(list2.get(i)).prop('selected', true)
+                $.ajax({
+                    type: "GET",
+                    url: '/dormitory/dormitoryList?gender=' + gender,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        // 处理后端返回的数据
+                        console.log(data)
+                        var str = ""
+                        for (i = 0; i < data.length; i++) {
+                            str += "<option value=" + data[i].id + " class=dormitory>" + data[i].name + "</option>"
+                        }
+                        $("select[name=dormitoryId]").html(str);
+                    },
+                    error: function () {
+                        alert("Error in Ajax request");
+                    }
+                });
             }
         }
     })
@@ -335,6 +345,26 @@
         modal.find('#id').val(id)
         modal.find('#dormitoryId').val(dormitoryId)
     })
+
+    $("input[name=gender]").click(function () {
+        $.ajax({
+            type: "GET",
+            url: '/dormitory/dormitoryList?gender=' + $(this).val(),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                // 处理后端返回的数据
+                console.log(data)
+                var str = ""
+                for (i = 0; i < data.length; i++) {
+                    str += "<option value=" + data[i].id + " class=dormitory>" + data[i].name + "</option>"
+                }
+                $("select[name=dormitoryId]").html(str);
+            },
+            error: function () {
+                alert("Error in Ajax request");
+            }
+        });
+    });
 </script>
 
 </body>

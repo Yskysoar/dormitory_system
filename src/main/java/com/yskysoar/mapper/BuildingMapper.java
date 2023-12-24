@@ -1,6 +1,7 @@
 package com.yskysoar.mapper;
 
 import com.yskysoar.entity.Building;
+import com.yskysoar.entity.Dormitory;
 
 import java.util.List;
 
@@ -49,4 +50,10 @@ public interface BuildingMapper {
      */
     public void delete(Integer id);
 
+    /**
+     * 根据性别展示寝室
+     * @param gender 性别
+     * @return 寝室列表
+     */
+    public List<Dormitory> dormitoryListByGender(String gender);
 }

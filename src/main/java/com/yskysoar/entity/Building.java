@@ -2,6 +2,8 @@ package com.yskysoar.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author Yskysoar
  * @createTime 2023-06-22 22:44
@@ -9,7 +11,7 @@ import lombok.Data;
  */
 
 @Data
-public class Building {
+public class Building implements Serializable {
     private Integer id;
     private String name;
     private String introduction;

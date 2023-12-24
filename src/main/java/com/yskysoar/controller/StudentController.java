@@ -1,6 +1,7 @@
 package com.yskysoar.controller;
 
 import com.yskysoar.entity.Student;
+import com.yskysoar.service.BuildingService;
 import com.yskysoar.service.DormitoryService;
 import com.yskysoar.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class StudentController {
     //相关业务操作的注入
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private BuildingService buildingService;
 
     @Autowired
     private DormitoryService dormitoryService;

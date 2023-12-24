@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>寝室管理员操作页面</title>
+    <title>TUST寝室管理系统</title>
     <meta charset="utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!-- 引入 Bootstrap -->

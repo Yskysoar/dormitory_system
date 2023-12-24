@@ -172,4 +172,6 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> findByDormitoryId(Integer id) {
         return this.studentMapper.findByDormitoryId(id);
     }
+
+
 }

@@ -16,6 +16,7 @@ gj.widget = function () {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
         }
+
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
     };
 
@@ -172,8 +173,8 @@ gj.widget.prototype.reload = function (params) {
     if ($.isArray(data.dataSource)) {
         result = gj[type].methods.filter(this);
         gj[type].methods.render(this, result);
-    } else if (typeof(data.dataSource) === 'string') {
-        ajaxOptions = { url: data.dataSource, data: data.params };
+    } else if (typeof (data.dataSource) === 'string') {
+        ajaxOptions = {url: data.dataSource, data: data.params};
         if (this.xhr) {
             this.xhr.abort();
         }
@@ -184,7 +185,7 @@ gj.widget.prototype.reload = function (params) {
         }
         $.extend(data.dataSource.data, data.params);
         ajaxOptions = $.extend(true, {}, data.dataSource); //clone dataSource object
-        if (ajaxOptions.dataType === 'json' && typeof(ajaxOptions.data) === 'object') {
+        if (ajaxOptions.dataType === 'json' && typeof (ajaxOptions.data) === 'object') {
             ajaxOptions.data = JSON.stringify(ajaxOptions.data);
         }
         if (!ajaxOptions.success) {
@@ -206,10 +207,10 @@ gj.documentManager = {
 
     subscribeForEvent: function (eventName, widgetId, callback) {
         if (!gj.documentManager.events[eventName] || gj.documentManager.events[eventName].length === 0) {
-            gj.documentManager.events[eventName] = [{ widgetId: widgetId, callback: callback }];
+            gj.documentManager.events[eventName] = [{widgetId: widgetId, callback: callback}];
             $(document).on(eventName, gj.documentManager.executeCallbacks);
         } else if (!gj.documentManager.events[eventName][widgetId]) {
-            gj.documentManager.events[eventName].push({ widgetId: widgetId, callback: callback });
+            gj.documentManager.events[eventName].push({widgetId: widgetId, callback: callback});
         } else {
             throw 'Event ' + eventName + ' for widget with guid="' + widgetId + '" is already attached.';
         }
@@ -246,14 +247,14 @@ gj.documentManager = {
 };
 
 /**
-  * @widget Core
-  * @plugin Base
-  */
+ * @widget Core
+ * @plugin Base
+ */
 gj.core = {
     messages: {
         'en-us': {
             monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            monthShortNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],            
+            monthShortNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             weekDaysMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
             weekDaysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
             weekDays: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -265,7 +266,7 @@ gj.core = {
         }
     },
 
-    /** 
+    /**
      * @method
      * @example String.1
      * <div id="date"></div>
@@ -350,7 +351,7 @@ gj.core = {
         return result;
     },
 
-    /** 
+    /**
      * @method
      * @example Sample.1
      * <div id="date"></div>
@@ -583,7 +584,7 @@ gj.core = {
             el = el.offsetParent;
         }
 
-        return { top: top, left: left, bottom: top + height, right: left + width };
+        return {top: top, left: left, bottom: top + height, right: left + width};
     },
 
     setCaretAtEnd: function (elem) {
@@ -616,8 +617,7 @@ gj.core = {
 };
 gj.picker = {
     messages: {
-        'en-us': {
-        }
+        'en-us': {}
     }
 };
 
@@ -765,8 +765,8 @@ gj.picker.widget.prototype.destroy = function (type) {
     return this;
 };
 /* global window alert jQuery */
-/** 
- * @widget Dialog 
+/**
+ * @widget Dialog
  * @plugin Base
  */
 gj.dialog = {
@@ -1157,7 +1157,7 @@ gj.dialog.config = {
          *     <div data-role="body">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
          *     <div data-role="footer">
          *         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-         *         <button type="button" class="btn btn-primary">Save changes</button>        
+         *         <button type="button" class="btn btn-primary">Save changes</button>
          *     </div>
          * </div>
          * <script>
@@ -1254,10 +1254,10 @@ gj.dialog.config = {
         }
     }
 };
-/** 
-  * @widget Dialog 
-  * @plugin Base
-  */
+/**
+ * @widget Dialog
+ * @plugin Base
+ */
 gj.dialog.events = {
     /**
      * Triggered when the dialog is initialized.
@@ -1543,7 +1543,7 @@ gj.dialog.methods = {
         return this;
     },
 
-    localization: function($dialog) {
+    localization: function ($dialog) {
         var data = $dialog.data();
         if (typeof (data.title) === 'undefined') {
             data.title = gj.dialog.messages[data.locale].DefaultTitle;
@@ -1605,7 +1605,7 @@ gj.dialog.methods = {
             $dialog.on('opened', function () {
                 var $body = $dialog.children('div[data-role="body"]');
                 $body.css('height', data.height - $header.outerHeight() - ($footer.length ? $footer.outerHeight() : 0));
-            });            
+            });
         }
 
         gj.core.center($dialog);
@@ -1692,10 +1692,10 @@ gj.dialog.methods = {
                 gj.dialog.events.resizeStop($dialog);
             }
         };
-        $dialog.append($('<div class="gj-resizable-handle gj-resizable-n"></div>').draggable($.extend(true, { horizontal: false }, config)));
-        $dialog.append($('<div class="gj-resizable-handle gj-resizable-e"></div>').draggable($.extend(true, { vertical: false }, config)));
-        $dialog.append($('<div class="gj-resizable-handle gj-resizable-s"></div>').draggable($.extend(true, { horizontal: false }, config)));
-        $dialog.append($('<div class="gj-resizable-handle gj-resizable-w"></div>').draggable($.extend(true, { vertical: false }, config)));
+        $dialog.append($('<div class="gj-resizable-handle gj-resizable-n"></div>').draggable($.extend(true, {horizontal: false}, config)));
+        $dialog.append($('<div class="gj-resizable-handle gj-resizable-e"></div>').draggable($.extend(true, {vertical: false}, config)));
+        $dialog.append($('<div class="gj-resizable-handle gj-resizable-s"></div>').draggable($.extend(true, {horizontal: false}, config)));
+        $dialog.append($('<div class="gj-resizable-handle gj-resizable-w"></div>').draggable($.extend(true, {vertical: false}, config)));
         $dialog.append($('<div class="gj-resizable-handle gj-resizable-ne"></div>').draggable($.extend(true, {}, config)));
         $dialog.append($('<div class="gj-resizable-handle gj-resizable-nw"></div>').draggable($.extend(true, {}, config)));
         $dialog.append($('<div class="gj-resizable-handle gj-resizable-sw"></div>').draggable($.extend(true, {}, config)));
@@ -1708,7 +1708,7 @@ gj.dialog.methods = {
         $el = $(this);
         $dialog = $el.parent();
         position = gj.core.position(this);
-        offset = { top: newPosition.top - position.top, left: newPosition.left - position.left };
+        offset = {top: newPosition.top - position.top, left: newPosition.left - position.left};
         data = $dialog.data();
 
         // TODO: Include margins in the calculations
@@ -1759,7 +1759,7 @@ gj.dialog.methods = {
         if (result) {
             gj.dialog.events.resize($dialog);
         }
-        
+
         return result;
     },
 
@@ -1819,15 +1819,15 @@ gj.dialog.methods = {
                 $dialog.find('[data-role="body"]').removeClass(data.style.body);
                 $dialog.find('[data-role="footer"]').removeClass(data.style.footer);
             }
-            
+
         }
         return $dialog;
     }
 };
-/** 
-  * @widget Dialog 
-  * @plugin Base
-  */
+/**
+ * @widget Dialog
+ * @plugin Base
+ */
 gj.dialog.widget = function ($element, jsConfig) {
     var self = this,
         methods = gj.dialog.methods;
@@ -1979,8 +1979,8 @@ gj.dialog.messages['en-us'] = {
     DefaultTitle: 'Dialog'
 };
 /* global window alert jQuery */
-/** 
- * @widget Draggable 
+/**
+ * @widget Draggable
  * @plugin Base
  */
 gj.draggable = {
@@ -2108,7 +2108,7 @@ gj.draggable.methods = {
                 $dragEl.attr('draggable-dragging', false);
                 gj.documentManager.unsubscribeForEvent('mousemove', $dragEl.data('guid'));
                 gj.documentManager.unsubscribeForEvent('touchmove', $dragEl.data('guid'));
-                gj.draggable.events.stop($dragEl, { x: $dragEl.mouseX(e), y: $dragEl.mouseY(e) });
+                gj.draggable.events.stop($dragEl, {x: $dragEl.mouseX(e), y: $dragEl.mouseY(e)});
             }
         };
     },
@@ -2212,7 +2212,7 @@ gj.draggable.events = {
      * </script>
      */
     drag: function ($dragEl, newLeft, newTop, mouseX, mouseY) {
-        return $dragEl.triggerHandler('drag', [{ left: newLeft, top: newTop }, { x: mouseX, y: mouseY }]);
+        return $dragEl.triggerHandler('drag', [{left: newLeft, top: newTop}, {x: mouseX, y: mouseY}]);
     },
 
     /**
@@ -2237,7 +2237,7 @@ gj.draggable.events = {
      * </script>
      */
     start: function ($dragEl, mouseX, mouseY) {
-        $dragEl.triggerHandler('start', [{ x: mouseX, y: mouseY }]);
+        $dragEl.triggerHandler('start', [{x: mouseX, y: mouseY}]);
     },
 
     /**
@@ -2318,8 +2318,8 @@ gj.draggable.widget.constructor = gj.draggable.widget;
     };
 })(jQuery);
 /* global window alert jQuery */
-/** 
- * @widget Droppable 
+/**
+ * @widget Droppable
  * @plugin Base
  */
 gj.droppable = {
@@ -2352,11 +2352,11 @@ gj.droppable.methods = {
 
         gj.widget.prototype.init.call(this, jsConfig, 'droppable');
         $dropEl.attr('data-droppable', 'true');
-        
+
         gj.documentManager.subscribeForEvent('mousedown', $dropEl.data('guid'), gj.droppable.methods.createMouseDownHandler($dropEl));
         gj.documentManager.subscribeForEvent('mousemove', $dropEl.data('guid'), gj.droppable.methods.createMouseMoveHandler($dropEl));
         gj.documentManager.subscribeForEvent('mouseup', $dropEl.data('guid'), gj.droppable.methods.createMouseUpHandler($dropEl));
-        
+
         return $dropEl;
     },
 
@@ -2445,7 +2445,7 @@ gj.droppable.events = {
      * </script>
      */
     drop: function ($dropEl, offsetX, offsetY) {
-        $dropEl.trigger('drop', [{ top: offsetY, left: offsetX }]);
+        $dropEl.trigger('drop', [{top: offsetY, left: offsetX}]);
     },
 
     /** Triggered when a draggable element is dragged over the droppable.
@@ -2570,9 +2570,9 @@ gj.droppable.widget.constructor = gj.droppable.widget;
 })(jQuery);
 /* global window alert jQuery gj */
 /**
-  * @widget Grid
-  * @plugin Base
-  */
+ * @widget Grid
+ * @plugin Base
+ */
 gj.grid = {
     plugins: {},
     messages: {}
@@ -3624,7 +3624,7 @@ gj.grid.config = {
          */
         fontSize: undefined,
 
-        /** Name of column that contains the record id. 
+        /** Name of column that contains the record id.
          * @additionalinfo If you set primary key, we assume that this number is unique for each records presented in the grid.<br/>
          * For example this should contains the column with primary key from your relation db table.<br/>
          * If the primaryKey is undefined, we autogenerate id for each record in the table by starting from 1.
@@ -3645,7 +3645,7 @@ gj.grid.config = {
          *             { field: 'ID', width: 70 },
          *             { field: 'Name' },
          *             { field: 'PlaceOfBirth' } ,
-         *             { tmpl: '<a href="#">click me</a>', events: { click: function(e) { alert('Your id is ' + e.data.id); } }, width: 100, stopPropagation: true } 
+         *             { tmpl: '<a href="#">click me</a>', events: { click: function(e) { alert('Your id is ' + e.data.id); } }, width: 100, stopPropagation: true }
          *         ]
          *     });
          * </script>
@@ -3663,7 +3663,7 @@ gj.grid.config = {
          *             { field: 'ID', width: 70 },
          *             { field: 'Name' },
          *             { field: 'PlaceOfBirth' } ,
-         *             { tmpl: '<a href="#">click me</a>', events: { click: function(e) { alert('Your id is ' + e.data.id); } }, width: 100, stopPropagation: true } 
+         *             { tmpl: '<a href="#">click me</a>', events: { click: function(e) { alert('Your id is ' + e.data.id); } }, width: 100, stopPropagation: true }
          *         ]
          *     });
          * </script>
@@ -3781,9 +3781,9 @@ gj.grid.config = {
 };
 
 /**
-  * @widget Grid
-  * @plugin Base
-  */
+ * @widget Grid
+ * @plugin Base
+ */
 gj.grid.events = {
     /**
      * Event fires before addition of an empty row to the grid.
@@ -4172,7 +4172,7 @@ gj.grid.methods = {
         }
         return result;
     },
-    
+
     initialize: function ($grid) {
         var data = $grid.data(),
             $wrapper = $grid.parent('div[data-role="wrapper"]');
@@ -4218,7 +4218,7 @@ gj.grid.methods = {
                 stopPropagation: true
             });
         }
-        
+
         if ($grid.children('tbody').length === 0) {
             $grid.append($('<tbody/>'));
         }
@@ -4266,7 +4266,7 @@ gj.grid.methods = {
                 if ($checkAllBoxes.length === 0) {
                     $checkAllBoxes = $('<input type="checkbox" data-role="selectAll" />');
                     $cell.append($checkAllBoxes);
-                    $checkAllBoxes.checkbox({ uiLibrary: data.uiLibrary });
+                    $checkAllBoxes.checkbox({uiLibrary: data.uiLibrary});
                 }
                 $checkAllBoxes.off('click').on('click', function () {
                     if (this.checked) {
@@ -4371,7 +4371,7 @@ gj.grid.methods = {
         var data, $row, $cell, $wrapper;
         data = $grid.data();
         $row = $('<tr data-role="empty"/>');
-        $cell = $('<td/>').css({ width: '100%', 'text-align': 'center' });
+        $cell = $('<td/>').css({width: '100%', 'text-align': 'center'});
         $cell.attr('colspan', gj.grid.methods.countVisibleColumns($grid));
         $wrapper = $('<div />').html(caption || data.notFoundText);
         $cell.append($wrapper);
@@ -4397,7 +4397,7 @@ gj.grid.methods = {
                         type = 'date';
                     }
                 }
-                data.columns.push({ field: names[i], type: type });
+                data.columns.push({field: names[i], type: type});
             }
             gj.grid.methods.setDefaultColumnConfig(data.columns, data.defaultColumnSettings);
         }
@@ -4504,7 +4504,11 @@ gj.grid.methods = {
         if (column.events) {
             for (key in column.events) {
                 if (column.events.hasOwnProperty(key)) {
-                    $cell.on(key, { id: id, field: column.field, record: record }, gj.grid.methods.createCellEventHandler(column, column.events[key]));
+                    $cell.on(key, {
+                        id: id,
+                        field: column.field,
+                        record: record
+                    }, gj.grid.methods.createCellEventHandler(column, column.events[key]));
                 }
             }
         }
@@ -4534,9 +4538,11 @@ gj.grid.methods = {
                 $checkbox = $('<input type="checkbox" />').val(id).prop('checked', (record[column.field] ? true : false));
                 column.role && $checkbox.attr('data-role', column.role);
                 $displayEl.append($checkbox);
-                $checkbox.checkbox({ uiLibrary: $grid.data('uiLibrary') });
+                $checkbox.checkbox({uiLibrary: $grid.data('uiLibrary')});
                 if (column.role === 'selectRow') {
-                    $checkbox.on('click', function () { return false; });
+                    $checkbox.on('click', function () {
+                        return false;
+                    });
                 } else {
                     $checkbox.prop('disabled', true);
                 }
@@ -4545,7 +4551,7 @@ gj.grid.methods = {
             }
         } else if ('icon' === column.type) {
             if ('create' === mode) {
-                $displayEl.append($('<span/>').addClass(column.icon).css({ cursor: 'pointer' }));
+                $displayEl.append($('<span/>').addClass(column.icon).css({cursor: 'pointer'}));
                 $grid.data().uiLibrary === 'bootstrap' && $displayEl.children('span').addClass('glyphicon');
                 column.stopPropagation = true;
             }
@@ -4922,7 +4928,7 @@ gj.grid.methods = {
             $cells;
 
         if (position > -1) {
-            $grid.find('thead>tr').each(function() {
+            $grid.find('thead>tr').each(function () {
                 $(this).children('th').eq(position).show();
             });
             $.each($grid.find('tbody>tr'), function () {
@@ -5042,9 +5048,9 @@ gj.grid.methods = {
 };
 
 /**
-  * @widget Grid
-  * @plugin Base
-  */
+ * @widget Grid
+ * @plugin Base
+ */
 gj.grid.widget = function ($grid, jsConfig) {
     var self = this,
         methods = gj.grid.methods;
@@ -5841,11 +5847,9 @@ gj.grid.plugins.fixedHeader = {
         }
     },
 
-    public: {
-    },
+    public: {},
 
-    events: {
-    },
+    events: {},
 
     configure: function ($grid, fullConfig, clientConfig) {
         $.extend(true, $grid, gj.grid.plugins.fixedHeader.public);
@@ -5864,8 +5868,8 @@ gj.grid.plugins.fixedHeader = {
     }
 };
 
-/** 
- * @widget Grid 
+/**
+ * @widget Grid
  * @plugin Expand Collapse Rows
  */
 gj.grid.plugins.expandCollapseRows = {
@@ -6034,7 +6038,7 @@ gj.grid.plugins.expandCollapseRows = {
             plugin.events.detailCollapse($grid, $detailsRow.find('td>div'), id);
         },
 
-        keepSelection: function($grid, id) {
+        keepSelection: function ($grid, id) {
             var data = $grid.data();
             if (data.keepExpandedRows) {
                 if ($.isArray(data.expandedRows)) {
@@ -6059,7 +6063,7 @@ gj.grid.plugins.expandCollapseRows = {
             if ($cells && $cells.length) {
                 $cells.attr('colspan', gj.grid.methods.countVisibleColumns($grid));
             }
-        }        
+        }
     },
 
     'public': {
@@ -6084,7 +6088,7 @@ gj.grid.plugins.expandCollapseRows = {
          */
         collapseAll: function () {
             var $grid = this, data = $grid.data(), position;
-                
+
 
             if (typeof (data.detailTemplate) !== 'undefined') {
                 position = gj.grid.methods.getColumnPositionByRole($grid, 'expander');
@@ -6161,7 +6165,7 @@ gj.grid.plugins.expandCollapseRows = {
          *
          * @event detailExpand
          * @param {object} e - event data
-         * @param {object} detailWrapper - the detail wrapper as jQuery object 
+         * @param {object} detailWrapper - the detail wrapper as jQuery object
          * @param {string} id - the id of the record
          * @example sample <!-- grid -->
          * <table id="grid"></table>
@@ -6187,7 +6191,7 @@ gj.grid.plugins.expandCollapseRows = {
          *
          * @event detailCollapse
          * @param {object} e - event data
-         * @param {object} detailWrapper - the detail wrapper as jQuery object 
+         * @param {object} detailWrapper - the detail wrapper as jQuery object
          * @param {string} id - the id of the record
          * @example sample <!-- grid -->
          * <table id="grid"></table>
@@ -6276,8 +6280,8 @@ gj.grid.plugins.expandCollapseRows = {
         }
     }
 };
-/** 
- * @widget Grid 
+/**
+ * @widget Grid
  * @plugin Inline Editing
  */
 gj.grid.plugins.inlineEditing = {
@@ -6484,7 +6488,7 @@ gj.grid.plugins.inlineEditing.config = {
              * </script>
              */
             mode: 'click',
-                
+
             /** If set to true, add column with buttons for edit, delete, update and cancel at the end of the grid.
              * @alias inlineEditing.managementColumn
              * @type Boolean
@@ -6616,22 +6620,40 @@ gj.grid.plugins.inlineEditing.config = {
              *         pager: { limit: 3, sizes: [3, 5, 10, 20] }
              *     });
              * </script>
-            */
+             */
             managementColumn: true,
 
-            managementColumnConfig: { width: 300, role: 'managementColumn', align: 'center', renderer: gj.grid.plugins.inlineEditing.renderers.editManager, cssClass: 'gj-grid-management-column' }
+            managementColumnConfig: {
+                width: 300,
+                role: 'managementColumn',
+                align: 'center',
+                renderer: gj.grid.plugins.inlineEditing.renderers.editManager,
+                cssClass: 'gj-grid-management-column'
+            }
         }
     },
 
     bootstrap: {
         inlineEditing: {
-            managementColumnConfig: { width: 200, role: 'managementColumn', align: 'center', renderer: gj.grid.plugins.inlineEditing.renderers.editManager, cssClass: 'gj-grid-management-column' }
+            managementColumnConfig: {
+                width: 200,
+                role: 'managementColumn',
+                align: 'center',
+                renderer: gj.grid.plugins.inlineEditing.renderers.editManager,
+                cssClass: 'gj-grid-management-column'
+            }
         }
     },
 
     bootstrap4: {
         inlineEditing: {
-            managementColumnConfig: { width: 280, role: 'managementColumn', align: 'center', renderer: gj.grid.plugins.inlineEditing.renderers.editManager, cssClass: 'gj-grid-management-column' }
+            managementColumnConfig: {
+                width: 280,
+                role: 'managementColumn',
+                align: 'center',
+                renderer: gj.grid.plugins.inlineEditing.renderers.editManager,
+                cssClass: 'gj-grid-management-column'
+            }
         }
     }
 };
@@ -6647,7 +6669,7 @@ gj.grid.plugins.inlineEditing.private = {
             data.inlineEditing.editButton = '<button role="edit" class="gj-button-md"><i class="gj-icon pencil" /> ' + gj.grid.messages[data.locale].Edit.toUpperCase() + '</button>';
             data.inlineEditing.deleteButton = '<button role="delete" class="gj-button-md"><i class="gj-icon delete" /> ' + gj.grid.messages[data.locale].Delete.toUpperCase() + '</button>';
             data.inlineEditing.updateButton = '<button role="update" class="gj-button-md"><i class="gj-icon check-circle" /> ' + gj.grid.messages[data.locale].Update.toUpperCase() + '</button>';
-            data.inlineEditing.cancelButton = '<button role="cancel" class="gj-button-md"><i class="gj-icon cancel" /> ' +gj.grid.messages[data.locale].Cancel.toUpperCase() + '</button>';
+            data.inlineEditing.cancelButton = '<button role="cancel" class="gj-button-md"><i class="gj-icon cancel" /> ' + gj.grid.messages[data.locale].Cancel.toUpperCase() + '</button>';
         }
     },
 
@@ -6797,7 +6819,7 @@ gj.grid.plugins.inlineEditing.private = {
         }
     },
 
-    updateOtherCells: function($grid, mode) {
+    updateOtherCells: function ($grid, mode) {
         var data = $grid.data();
         if (data.inlineEditing.mode !== 'command' && mode !== 'editOnly') {
             $grid.find('div[data-role="edit"]:visible').parent('td').each(function () {
@@ -6839,9 +6861,10 @@ gj.grid.plugins.inlineEditing.private = {
     generateGUID: function () {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000)
-              .toString(16)
-              .substring(1);
+                .toString(16)
+                .substring(1);
         }
+
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
     }
 };
@@ -6916,7 +6939,7 @@ gj.grid.plugins.inlineEditing.public = {
         for (i = 0; i < $cells.length; i++) {
             gj.grid.plugins.inlineEditing.private.editMode(this, $($cells[i]), columns[i], record);
         }
-            
+
         return this;
     },
 
@@ -7030,7 +7053,7 @@ gj.grid.plugins.inlineEditing.events = {
      *
      * @event cellDataChanged
      * @param {object} e - event data
-     * @param {object} $cell - the cell presented as jquery object 
+     * @param {object} $cell - the cell presented as jquery object
      * @param {object} column - the column configuration data
      * @param {object} record - the data of the row record
      * @param {object} newValue - the new cell value
@@ -7107,8 +7130,8 @@ gj.grid.plugins.inlineEditing.configure = function ($grid, fullConfig, clientCon
     }
 };
 
-/** 
- * @widget Grid 
+/**
+ * @widget Grid
  * @plugin Optimistic Persistence
  */
 gj.grid.plugins.optimisticPersistence = {
@@ -7181,7 +7204,7 @@ gj.grid.plugins.optimisticPersistence = {
         saveParams: function ($grid) {
             var i, param,
                 data = $grid.data(),
-                storage = { optimisticPersistence: {} };
+                storage = {optimisticPersistence: {}};
 
             if (data.optimisticPersistence.sessionStorage) {
                 for (i = 0; i < data.optimisticPersistence.sessionStorage.length; i++) {
@@ -7193,7 +7216,7 @@ gj.grid.plugins.optimisticPersistence = {
             }
 
             if (data.optimisticPersistence.localStorage) {
-                storage = { optimisticPersistence: {} };
+                storage = {optimisticPersistence: {}};
                 for (i = 0; i < data.optimisticPersistence.localStorage.length; i++) {
                     param = data.optimisticPersistence.localStorage[i];
                     storage.optimisticPersistence[param] = data.params[param];
@@ -7455,8 +7478,8 @@ gj.grid.plugins.pagination = {
                 $cell = $('<th/>');
                 $row.append($cell);
 
-                $leftPanel = $('<div data-role="display" />').addClass(data.style.pager.panel).css({ 'float': 'left' });
-                $rightPanel = $('<div data-role="display" />').addClass(data.style.pager.panel).css({ 'float': 'right' });
+                $leftPanel = $('<div data-role="display" />').addClass(data.style.pager.panel).css({'float': 'left'});
+                $rightPanel = $('<div data-role="display" />').addClass(data.style.pager.panel).css({'float': 'right'});
 
                 $cell.append($leftPanel).append($rightPanel);
 
@@ -7601,7 +7624,9 @@ gj.grid.plugins.pagination = {
                     }
                     break;
                 case 'page-refresh':
-                    $control.on('click', function () { $grid.reload(); });
+                    $control.on('click', function () {
+                        $grid.reload();
+                    });
                     break;
             }
 
@@ -7723,7 +7748,7 @@ gj.grid.plugins.pagination = {
                 $cell.attr('colspan', gj.grid.methods.countVisibleColumns($grid));
             }
         },
-        
+
         isLastRecordVisible: function ($grid) {
             var result = true,
                 data = $grid.data(),
@@ -7743,7 +7768,7 @@ gj.grid.plugins.pagination = {
             if ($.isArray(data.dataSource)) {
                 if (includeAllRecords) {
                     return data.dataSource;
-                } else if (data.params[data.paramNames.limit] && data.params[data.paramNames.page]) {                    
+                } else if (data.params[data.paramNames.limit] && data.params[data.paramNames.page]) {
                     limit = parseInt(data.params[data.paramNames.limit], 10);
                     page = parseInt(data.params[data.paramNames.page], 10);
                     start = (page - 1) * limit;
@@ -7835,8 +7860,8 @@ gj.grid.plugins.pagination = {
     }
 };
 
-/** 
- * @widget Grid 
+/**
+ * @widget Grid
  * @plugin Responsive Design
  */
 gj.grid.plugins.responsiveDesign = {
@@ -7908,7 +7933,7 @@ gj.grid.plugins.responsiveDesign = {
              * </script>
              * @example Local.Data.Source <!-- bootstrap, grid, grid.expandCollapseRows, grid.responsiveDesign -->
              * <table id="grid"></table>
-             * <script>             
+             * <script>
              *     var data = [
              *         { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
              *         { 'ID': 2, 'Name': 'Ronaldo Luis Nazario de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
@@ -8013,8 +8038,8 @@ gj.grid.plugins.responsiveDesign = {
             }
             return result;
         },
-        
-        updateDetails: function ($grid) {      
+
+        updateDetails: function ($grid) {
             var rows, data, i, j, $row, details, $placeholder, column, tmp;
             rows = $grid.find('tbody > tr[data-role="row"]');
             data = $grid.data();
@@ -8172,63 +8197,63 @@ gj.grid.plugins.responsiveDesign = {
     }
 };
 
-/** 
- * @widget Grid 
+/**
+ * @widget Grid
  * @plugin Toolbar
  */
 gj.grid.plugins.toolbar = {
     config: {
         base: {
             /** Template for the content in the toolbar. Appears in a separate row on top of the grid.
-              * @type string
-              * @default undefined
-              * @example sample <!-- bootstrap, grid, grid.toolbar, grid.pagination -->
-              * <table id="grid"></table>
-              * <script>
-              *     var grid = $('#grid').grid({
-              *         dataSource: '/Players/Get',
-              *         uiLibrary: 'bootstrap',
-              *         toolbarTemplate: '<div class="row"><div class="col-xs-8" style="line-height:34px"><span data-role="title">Grid Title</span></div><div class="col-xs-4 text-right"><button onclick="grid.reload()" class="btn btn-default">click here to refresh</button></div></div>',
-              *         columns: [ { field: 'ID', width: 34 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
-              *         pager: { limit: 5 }
-              *     });
-              * </script>
-              */
+             * @type string
+             * @default undefined
+             * @example sample <!-- bootstrap, grid, grid.toolbar, grid.pagination -->
+             * <table id="grid"></table>
+             * <script>
+             *     var grid = $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         uiLibrary: 'bootstrap',
+             *         toolbarTemplate: '<div class="row"><div class="col-xs-8" style="line-height:34px"><span data-role="title">Grid Title</span></div><div class="col-xs-4 text-right"><button onclick="grid.reload()" class="btn btn-default">click here to refresh</button></div></div>',
+             *         columns: [ { field: 'ID', width: 34 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+             *         pager: { limit: 5 }
+             *     });
+             * </script>
+             */
             toolbarTemplate: undefined,
 
             /** The title of the grid. Appears in a separate row on top of the grid.
-              * @type string
-              * @default undefined
-              * @example Material.Design <!-- grid, grid.toolbar -->
-              * <table id="grid"></table>
-              * <script>
-              *     $('#grid').grid({
-              *         dataSource: '/Players/Get',
-              *         title: 'Players',
-              *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
-              *     });
-              * </script>
-              * @example Bootstrap.3 <!-- bootstrap, grid, grid.toolbar -->
-              * <table id="grid"></table>
-              * <script>
-              *     $('#grid').grid({
-              *         dataSource: '/Players/Get',
-              *         uiLibrary: 'bootstrap',
-              *         title: 'Players',
-              *         columns: [ { field: 'ID', width: 34 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
-              *     });
-              * </script>
-              * @example Bootstrap.4 <!-- bootstrap4, grid, grid.toolbar -->
-              * <table id="grid"></table>
-              * <script>
-              *     $('#grid').grid({
-              *         dataSource: '/Players/Get',
-              *         uiLibrary: 'bootstrap4',
-              *         title: 'Players',
-              *         columns: [ { field: 'ID', width: 34 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
-              *     });
-              * </script>
-              */
+             * @type string
+             * @default undefined
+             * @example Material.Design <!-- grid, grid.toolbar -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         title: 'Players',
+             *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             * @example Bootstrap.3 <!-- bootstrap, grid, grid.toolbar -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         uiLibrary: 'bootstrap',
+             *         title: 'Players',
+             *         columns: [ { field: 'ID', width: 34 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             * @example Bootstrap.4 <!-- bootstrap4, grid, grid.toolbar -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         uiLibrary: 'bootstrap4',
+             *         title: 'Players',
+             *         columns: [ { field: 'ID', width: 34 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             */
             title: undefined,
 
             style: {
@@ -8281,7 +8306,7 @@ gj.grid.plugins.toolbar = {
         }
     },
 
-    public: {        
+    public: {
         /**
          * Get or set grid title.
          * @additionalinfo When you pass value in the text parameter this value with be in use for the new title of the grid and the method will return grid object.<br/>
@@ -8337,8 +8362,8 @@ gj.grid.plugins.toolbar = {
     }
 };
 
-/** 
- * @widget Grid 
+/**
+ * @widget Grid
  * @plugin Resizable Columns
  */
 gj.grid.plugins.resizableColumns = {
@@ -8433,7 +8458,7 @@ gj.grid.plugins.resizableColumns = {
                 var i, index, rows, cell, newWidth, nextWidth,
                     currentWidth = parseInt($column.attr('width'), 10),
                     position = gj.core.position(this),
-                    offset = { top: newPosition.top - position.top, left: newPosition.left - position.left };
+                    offset = {top: newPosition.top - position.top, left: newPosition.left - position.left};
                 if (!currentWidth) {
                     currentWidth = $column.outerWidth();
                 }
@@ -8458,8 +8483,7 @@ gj.grid.plugins.resizableColumns = {
         }
     },
 
-    public: {
-    },
+    public: {},
 
     configure: function ($grid, fullConfig, clientConfig) {
         $.extend(true, $grid, gj.grid.plugins.resizableColumns.public);
@@ -8471,8 +8495,8 @@ gj.grid.plugins.resizableColumns = {
     }
 };
 
-/** 
- * @widget Grid 
+/**
+ * @widget Grid
  * @plugin Row Reorder
  */
 gj.grid.plugins.rowReorder = {
@@ -8613,8 +8637,12 @@ gj.grid.plugins.rowReorder = {
                 $dragEl.draggable({
                     stop: gj.grid.plugins.rowReorder.private.createDragStopHandler($grid, $trSource)
                 });
-                $dragEl.css({ 
-                    position: 'absolute', top: $trSource.offset().top, left: $trSource.offset().left, width: $trSource.width(), zIndex: 1
+                $dragEl.css({
+                    position: 'absolute',
+                    top: $trSource.offset().top,
+                    left: $trSource.offset().left,
+                    width: $trSource.width(),
+                    zIndex: 1
                 });
                 if ($trSource.attr('data-droppable') === 'true') {
                     $trSource.droppable('destroy');
@@ -8643,7 +8671,7 @@ gj.grid.plugins.rowReorder = {
                         sourcePosition = $trSource.data('position'),
                         data = $grid.data(),
                         $rows, $row, i, record, id;
-                        
+
                     if ($trTarget.droppable('isOver', mousePosition)) {
                         if (targetPosition < sourcePosition) {
                             $trTarget.before($trSource);
@@ -8693,8 +8721,7 @@ gj.grid.plugins.rowReorder = {
         }
     },
 
-    public: {
-    },
+    public: {},
 
     configure: function ($grid, fullConfig, clientConfig) {
         $.extend(true, $grid, gj.grid.plugins.rowReorder.public);
@@ -8706,12 +8733,12 @@ gj.grid.plugins.rowReorder = {
     }
 };
 
-/** 
- * @widget Grid 
+/**
+ * @widget Grid
  * @plugin Export
  */
 gj.grid.plugins.export = {
-    config: { base: {} },
+    config: {base: {}},
 
     public: {
         /**
@@ -8769,7 +8796,7 @@ gj.grid.plugins.export = {
                         if (gj.grid.plugins.export.public.isColumnApplicable(columns[j])) {
                             line += '"' + records[i][columns[j].field] + '",';
                         }
-                    }                    
+                    }
                     str += line.slice(0, line.length - 1) + '\r\n';
                 }
             }
@@ -8816,9 +8843,9 @@ gj.grid.plugins.export = {
         downloadCSV: function (filename, includeAllRecords) {
             var link = document.createElement('a');
             document.body.appendChild(link);
-            link.download = filename || 'griddata.csv'; 
+            link.download = filename || 'griddata.csv';
             if (window.navigator.userAgent.indexOf("Edge") > -1) {
-                link.href = URL.createObjectURL(new Blob([this.getCSV(includeAllRecords)], { type: 'text/csv;charset=utf-8;' }));
+                link.href = URL.createObjectURL(new Blob([this.getCSV(includeAllRecords)], {type: 'text/csv;charset=utf-8;'}));
             } else {
                 link.href = 'data:text/csv;charset=utf-8,' + escape(this.getCSV(includeAllRecords));
             }
@@ -8837,8 +8864,8 @@ gj.grid.plugins.export = {
     }
 };
 
-/** 
- * @widget Grid 
+/**
+ * @widget Grid
  * @plugin Column Reorder
  */
 gj.grid.plugins.columnReorder = {
@@ -8936,7 +8963,11 @@ gj.grid.plugins.columnReorder = {
                         stop: gj.grid.plugins.columnReorder.private.createDragStopHandler($grid, $thSource)
                     });
                     $dragEl.css({
-                        position: 'absolute', top: $thSource.offset().top, left: $thSource.offset().left, width: $thSource.width(), zIndex: 1
+                        position: 'absolute',
+                        top: $thSource.offset().top,
+                        left: $thSource.offset().left,
+                        width: $thSource.width(),
+                        zIndex: 1
                     });
                     if ($thSource.attr('data-droppable') === 'true') {
                         $thSource.droppable('destroy');
@@ -8990,7 +9021,7 @@ gj.grid.plugins.columnReorder = {
                     $row.find('td:eq(' + targetPosition + ')').before($row.find('td:eq(' + sourcePosition + ')'));
                 } else {
                     $row.find('td:eq(' + targetPosition + ')').after($row.find('td:eq(' + sourcePosition + ')'));
-                }                
+                }
             }
         },
 
@@ -9017,8 +9048,7 @@ gj.grid.plugins.columnReorder = {
         }
     },
 
-    public: {
-    },
+    public: {},
 
     configure: function ($grid, fullConfig, clientConfig) {
         $.extend(true, $grid, gj.grid.plugins.columnReorder.public);
@@ -9182,11 +9212,9 @@ gj.grid.plugins.headerFilter = {
         }
     },
 
-    public: {
-    },
+    public: {},
 
-    events: {
-    },
+    events: {},
 
     configure: function ($grid, fullConfig, clientConfig) {
         $.extend(true, $grid, gj.grid.plugins.headerFilter.public);
@@ -9199,8 +9227,8 @@ gj.grid.plugins.headerFilter = {
     }
 };
 
-/** 
- * @widget Grid 
+/**
+ * @widget Grid
  * @plugin Grouping
  */
 gj.grid.plugins.grouping = {
@@ -9226,58 +9254,58 @@ gj.grid.plugins.grouping = {
 
             grouping: {
                 /** The name of the field that needs to be in use for grouping.
-                  * @type string
-                  * @alias grouping.groupBy
-                  * @default undefined
-                  * @example Local.Data <!-- grid -->
-                  * <table id="grid"></table>
-                  * <script>
-                  *     var grid, data = [
-                  *         { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria', CountryName: 'Bulgaria' },
-                  *         { 'ID': 2, 'Name': 'Ronaldo Luís Nazário de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil', CountryName: 'Brazil' },
-                  *         { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England', CountryName: 'England' },
-                  *         { 'ID': 4, 'Name': 'Manuel Neuer', 'PlaceOfBirth': 'Gelsenkirchen, West Germany', CountryName: 'Germany' },
-                  *         { 'ID': 5, 'Name': 'James Rodríguez', 'PlaceOfBirth': 'Cúcuta, Colombia', CountryName: 'Colombia' },
-                  *         { 'ID': 6, 'Name': 'Dimitar Berbatov', 'PlaceOfBirth': 'Blagoevgrad, Bulgaria', CountryName: 'Bulgaria' }
-                  *     ];
-                  *     $('#grid').grid({
-                  *         dataSource: data,
-                  *         grouping: { groupBy: 'CountryName' },
-                  *         columns: [ { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ]
-                  *     });
-                  * </script>
-                  * @example Remote.Data <!-- grid -->
-                  * <table id="grid"></table>
-                  * <script>
-                  *     $('#grid').grid({
-                  *         dataSource: '/Players/Get',
-                  *         grouping: { groupBy: 'CountryName' },
-                  *         columns: [ { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ]
-                  *     });
-                  * </script>
-                  * @example Bootstrap.3 <!-- bootstrap, grid -->
-                  * <table id="grid"></table>
-                  * <script>
-                  *     $('#grid').grid({
-                  *         dataSource: '/Players/Get',
-                  *         uiLibrary: 'bootstrap',
-                  *         grouping: { groupBy: 'CountryName' },
-                  *         columns: [ { field: 'Name', sortable: true }, { field: 'DateOfBirth', type: 'date' } ]
-                  *         detailTemplate: '<div><b>Place Of Birth:</b> {PlaceOfBirth}</div>'
-                  *     });
-                  * </script>
-                  * @example Bootstrap.4 <!-- bootstrap4, fontawesome, grid -->
-                  * <table id="grid"></table>
-                  * <script>
-                  *     $('#grid').grid({
-                  *         dataSource: '/Players/Get',
-                  *         uiLibrary: 'bootstrap4',
-                  *         iconsLibrary: 'fontawesome',
-                  *         grouping: { groupBy: 'CountryName' },
-                  *         columns: [ { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ]
-                  *     });
-                  * </script>
-                  */
+                 * @type string
+                 * @alias grouping.groupBy
+                 * @default undefined
+                 * @example Local.Data <!-- grid -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     var grid, data = [
+                 *         { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria', CountryName: 'Bulgaria' },
+                 *         { 'ID': 2, 'Name': 'Ronaldo Luís Nazário de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil', CountryName: 'Brazil' },
+                 *         { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England', CountryName: 'England' },
+                 *         { 'ID': 4, 'Name': 'Manuel Neuer', 'PlaceOfBirth': 'Gelsenkirchen, West Germany', CountryName: 'Germany' },
+                 *         { 'ID': 5, 'Name': 'James Rodríguez', 'PlaceOfBirth': 'Cúcuta, Colombia', CountryName: 'Colombia' },
+                 *         { 'ID': 6, 'Name': 'Dimitar Berbatov', 'PlaceOfBirth': 'Blagoevgrad, Bulgaria', CountryName: 'Bulgaria' }
+                 *     ];
+                 *     $('#grid').grid({
+                 *         dataSource: data,
+                 *         grouping: { groupBy: 'CountryName' },
+                 *         columns: [ { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ]
+                 *     });
+                 * </script>
+                 * @example Remote.Data <!-- grid -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     $('#grid').grid({
+                 *         dataSource: '/Players/Get',
+                 *         grouping: { groupBy: 'CountryName' },
+                 *         columns: [ { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ]
+                 *     });
+                 * </script>
+                 * @example Bootstrap.3 <!-- bootstrap, grid -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     $('#grid').grid({
+                 *         dataSource: '/Players/Get',
+                 *         uiLibrary: 'bootstrap',
+                 *         grouping: { groupBy: 'CountryName' },
+                 *         columns: [ { field: 'Name', sortable: true }, { field: 'DateOfBirth', type: 'date' } ]
+                 *         detailTemplate: '<div><b>Place Of Birth:</b> {PlaceOfBirth}</div>'
+                 *     });
+                 * </script>
+                 * @example Bootstrap.4 <!-- bootstrap4, fontawesome, grid -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     $('#grid').grid({
+                 *         dataSource: '/Players/Get',
+                 *         uiLibrary: 'bootstrap4',
+                 *         iconsLibrary: 'fontawesome',
+                 *         grouping: { groupBy: 'CountryName' },
+                 *         columns: [ { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ]
+                 *     });
+                 * </script>
+                 */
                 groupBy: undefined,
 
                 direction: 'asc'
@@ -9402,7 +9430,7 @@ gj.grid.plugins.grouping = {
         }
     },
 
-    public: { },
+    public: {},
 
     configure: function ($grid) {
         var column, data = $grid.data();
@@ -9451,9 +9479,9 @@ gj.grid.messages['en-us'] = {
 };
 /* global window alert jQuery gj */
 /**
-  * @widget Tree
-  * @plugin Base
-  */
+ * @widget Tree
+ * @plugin Base
+ */
 gj.tree = {
     plugins: {}
 };
@@ -10097,9 +10125,9 @@ gj.tree.config = {
     }
 };
 /**
-  * @widget Tree
-  * @plugin Base
-  */
+ * @widget Tree
+ * @plugin Base
+ */
 gj.tree.events = {
 
     /**
@@ -10414,7 +10442,7 @@ gj.tree.methods = {
         var i, $node, $newParent, $span, $img,
             data = $tree.data(),
             id = data.primaryKey ? nodeData[data.primaryKey] : nodeData[data.autoGenFieldName];
-            $node = $('<li data-id="' + id + '" data-role="node" />').addClass(data.style.item),
+        $node = $('<li data-id="' + id + '" data-role="node" />').addClass(data.style.item),
             $wrapper = $('<div data-role="wrapper" />'),
             $expander = $('<span data-role="expander" data-mode="close"></span>').addClass(data.style.expander),
             $display = $('<span data-role="display">' + nodeData[data.textField] + '</span>'),
@@ -10576,7 +10604,7 @@ gj.tree.methods = {
             }
         }
     },
-    
+
     unselectAll: function ($tree) {
         var i, $nodes = $tree.find('ul>li');
         for (i = 0; i < $nodes.length; i++) {
@@ -10859,9 +10887,9 @@ gj.tree.methods = {
     }
 }
 /**
-  * @widget Tree
-  * @plugin Base
-  */
+ * @widget Tree
+ * @plugin Base
+ */
 gj.tree.widget = function ($element, jsConfig) {
     var self = this,
         methods = gj.tree.methods;
@@ -10926,7 +10954,7 @@ gj.tree.widget = function ($element, jsConfig) {
      * @method
      * @param {object} data - The node data.
      * @param {object} parentNode - Parent node as jquery object.
-     * @param {Number} position - Position where the new node need to be added. 
+     * @param {Number} position - Position where the new node need to be added.
      * @return jQuery object
      * @example Append.ToRoot <!-- tree -->
      * <button onclick="append()" class="gj-button-md">Append To Root</button>
@@ -11636,43 +11664,43 @@ gj.tree.widget.constructor = gj.tree.widget;
         }
     };
 })(jQuery);
-/** 
- * @widget Tree 
+/**
+ * @widget Tree
  * @plugin Checkboxes
  */
 gj.tree.plugins.checkboxes = {
     config: {
         base: {
             /** Add checkbox for each node, if set to true.
-              * @type Boolean
-              * @default undefined
-              * @example Material.Design <!-- checkbox, tree -->
-              * <div id="tree"></div>
-              * <script>
-              *     var tree = $('#tree').tree({
-              *         dataSource: '/Locations/Get',
-              *         checkboxes: true
-              *     });
-              * </script>
-              * @example Bootstrap.3 <!-- bootstrap, checkbox, tree -->
-              * <div id="tree"></div>
-              * <script>
-              *     var tree = $('#tree').tree({
-              *         dataSource: '/Locations/Get',
-              *         checkboxes: true,
-              *         uiLibrary: 'bootstrap'
-              *     });
-              * </script>
-              * @example Bootstrap.4 <!-- bootstrap4, checkbox, tree -->
-              * <div id="tree"></div>
-              * <script>
-              *     var tree = $('#tree').tree({
-              *         dataSource: '/Locations/Get',
-              *         checkboxes: true,
-              *         uiLibrary: 'bootstrap4'
-              *     });
-              * </script>
-              */
+             * @type Boolean
+             * @default undefined
+             * @example Material.Design <!-- checkbox, tree -->
+             * <div id="tree"></div>
+             * <script>
+             *     var tree = $('#tree').tree({
+             *         dataSource: '/Locations/Get',
+             *         checkboxes: true
+             *     });
+             * </script>
+             * @example Bootstrap.3 <!-- bootstrap, checkbox, tree -->
+             * <div id="tree"></div>
+             * <script>
+             *     var tree = $('#tree').tree({
+             *         dataSource: '/Locations/Get',
+             *         checkboxes: true,
+             *         uiLibrary: 'bootstrap'
+             *     });
+             * </script>
+             * @example Bootstrap.4 <!-- bootstrap4, checkbox, tree -->
+             * <div id="tree"></div>
+             * <script>
+             *     var tree = $('#tree').tree({
+             *         dataSource: '/Locations/Get',
+             *         checkboxes: true,
+             *         uiLibrary: 'bootstrap4'
+             *     });
+             * </script>
+             */
             checkboxes: undefined,
 
             /** Name of the source field, that indicates if the checkbox is checked.
@@ -12004,53 +12032,53 @@ gj.tree.plugins.checkboxes = {
  * @plugin DragAndDrop
  */
 gj.tree.plugins.dragAndDrop = {
-	config: {
-		base: {
-			/** Enables drag and drop functionality for each node.
-              * @type Boolean
-              * @default undefined
-              * @example Material.Design <!-- draggable, droppable, tree -->
-              * <h3>Drag and Drop Tree Nodes</h3>
-              * <div id="tree"></div>
-              * <script>
-              *     $('#tree').tree({
-              *         dataSource: '/Locations/Get',
-              *         dragAndDrop: true
-              *     });
-              * </script>
-              * @example Bootstrap.3 <!-- bootstrap, draggable, droppable, tree -->
-              * <div class="container">
-              *     <h3>Drag and Drop Tree Nodes</h3>
-              *     <div id="tree"></div>
-              * </div>
-              * <script>
-              *     $('#tree').tree({
-              *         dataSource: '/Locations/Get',
-              *         dragAndDrop: true,
-              *         uiLibrary: 'bootstrap'
-              *     });
-              * </script>
-              * @example Bootstrap.4 <!-- bootstrap4, draggable, droppable, tree -->
-              * <div class="container">
-              *     <h3>Drag and Drop Tree Nodes</h3>
-              *     <div id="tree"></div>
-              * </div>
-              * <script>
-              *     $('#tree').tree({
-              *         dataSource: '/Locations/Get',
-              *         dragAndDrop: true,
-              *         uiLibrary: 'bootstrap4'
-              *     });
-              * </script>
-              */
-			dragAndDrop: undefined,
+    config: {
+        base: {
+            /** Enables drag and drop functionality for each node.
+             * @type Boolean
+             * @default undefined
+             * @example Material.Design <!-- draggable, droppable, tree -->
+             * <h3>Drag and Drop Tree Nodes</h3>
+             * <div id="tree"></div>
+             * <script>
+             *     $('#tree').tree({
+             *         dataSource: '/Locations/Get',
+             *         dragAndDrop: true
+             *     });
+             * </script>
+             * @example Bootstrap.3 <!-- bootstrap, draggable, droppable, tree -->
+             * <div class="container">
+             *     <h3>Drag and Drop Tree Nodes</h3>
+             *     <div id="tree"></div>
+             * </div>
+             * <script>
+             *     $('#tree').tree({
+             *         dataSource: '/Locations/Get',
+             *         dragAndDrop: true,
+             *         uiLibrary: 'bootstrap'
+             *     });
+             * </script>
+             * @example Bootstrap.4 <!-- bootstrap4, draggable, droppable, tree -->
+             * <div class="container">
+             *     <h3>Drag and Drop Tree Nodes</h3>
+             *     <div id="tree"></div>
+             * </div>
+             * <script>
+             *     $('#tree').tree({
+             *         dataSource: '/Locations/Get',
+             *         dragAndDrop: true,
+             *         uiLibrary: 'bootstrap4'
+             *     });
+             * </script>
+             */
+            dragAndDrop: undefined,
 
-			style: {
-			    dragEl: 'gj-tree-drag-el gj-tree-md-drag-el',
+            style: {
+                dragEl: 'gj-tree-drag-el gj-tree-md-drag-el',
                 dropAsChildIcon: 'gj-cursor-pointer gj-icon plus',
-			    dropAbove: 'gj-tree-drop-above',
-			    dropBelow: 'gj-tree-drop-below'
-			}
+                dropAbove: 'gj-tree-drop-above',
+                dropBelow: 'gj-tree-drop-below'
+            }
         },
 
         bootstrap: {
@@ -12070,17 +12098,17 @@ gj.tree.plugins.dragAndDrop = {
                 dropBelow: 'drop-below'
             }
         }
-	},
+    },
 
-	private: {
-	    nodeDataBound: function ($tree, $node) {
-	        var $wrapper = $node.children('[data-role="wrapper"]'),
-    	        $display = $node.find('>[data-role="wrapper"]>[data-role="display"]');
+    private: {
+        nodeDataBound: function ($tree, $node) {
+            var $wrapper = $node.children('[data-role="wrapper"]'),
+                $display = $node.find('>[data-role="wrapper"]>[data-role="display"]');
             if ($wrapper.length && $display.length) {
                 $display.on('mousedown', gj.tree.plugins.dragAndDrop.private.createNodeMouseDownHandler($tree));
                 $display.on('mousemove', gj.tree.plugins.dragAndDrop.private.createNodeMouseMoveHandler($tree, $node, $display));
                 $display.on('mouseup', gj.tree.plugins.dragAndDrop.private.createNodeMouseUpHandler($tree));
-		    }
+            }
         },
 
         createNodeMouseDownHandler: function ($tree) {
@@ -12095,7 +12123,7 @@ gj.tree.plugins.dragAndDrop = {
             }
         },
 
-	    createNodeMouseMoveHandler: function ($tree, $node, $display) {
+        createNodeMouseMoveHandler: function ($tree, $node, $display) {
             return function (e) {
                 if ($tree.data('dragReady')) {
                     var data = $tree.data(), $dragEl, $wrapper, offsetTop, offsetLeft;
@@ -12139,70 +12167,70 @@ gj.tree.plugins.dragAndDrop = {
                     });
                     $dragEl.trigger('mousedown');
                 }
-		    };
-	    },
-
-	    getTargetDisplays: function ($tree, $node, $display) {
-	        return $tree.find('[data-role="display"]').not($display).not($node.find('[data-role="display"]'));
-	    },
-
-	    getTargetWrappers: function ($tree, $node) {
-	        return $tree.find('[data-role="wrapper"]').not($node.find('[data-role="wrapper"]'));
-	    },
-
-	    createDragHandler: function ($tree, $node, $display) {
-	        var $displays = gj.tree.plugins.dragAndDrop.private.getTargetDisplays($tree, $node, $display),
-                $wrappers = gj.tree.plugins.dragAndDrop.private.getTargetWrappers($tree, $node),
-	            data = $tree.data();
-	        return function (e, offset, mousePosition) {
-	            var $dragEl = $(this), success = false;
-	            $displays.each(function () {
-	                var $targetDisplay = $(this),
-	                    $indicator;
-	                if ($targetDisplay.droppable('isOver', mousePosition)) {
-	                    $indicator = $dragEl.find('[data-role="indicator"]');
-	                    data.style.dropAsChildIcon ? $indicator.addClass(data.style.dropAsChildIcon) : $indicator.text('+');
-	                    success = true;
-	                    return false;
-	                } else {
-	                    $dragEl.find('[data-role="indicator"]').removeClass(data.style.dropAsChildIcon).empty();
-                    }
-	            });
-	            $wrappers.each(function () {
-	                var $wrapper = $(this),
-                        $indicator, middle;
-	                if (!success && $wrapper.droppable('isOver', mousePosition)) {
-	                    middle = $wrapper.position().top + ($wrapper.outerHeight() / 2);
-	                    if (mousePosition.y < middle) {
-	                        $wrapper.addClass(data.style.dropAbove).removeClass(data.style.dropBelow);
-	                    } else {
-	                        $wrapper.addClass(data.style.dropBelow).removeClass(data.style.dropAbove);
-	                    }
-	                } else {
-	                    $wrapper.removeClass(data.style.dropAbove).removeClass(data.style.dropBelow);
-	                }
-	            });
-	        };
+            };
         },
 
-	    createDragStopHandler: function ($tree, $sourceNode, $sourceDisplay) {
-	        var $displays = gj.tree.plugins.dragAndDrop.private.getTargetDisplays($tree, $sourceNode, $sourceDisplay),
+        getTargetDisplays: function ($tree, $node, $display) {
+            return $tree.find('[data-role="display"]').not($display).not($node.find('[data-role="display"]'));
+        },
+
+        getTargetWrappers: function ($tree, $node) {
+            return $tree.find('[data-role="wrapper"]').not($node.find('[data-role="wrapper"]'));
+        },
+
+        createDragHandler: function ($tree, $node, $display) {
+            var $displays = gj.tree.plugins.dragAndDrop.private.getTargetDisplays($tree, $node, $display),
+                $wrappers = gj.tree.plugins.dragAndDrop.private.getTargetWrappers($tree, $node),
+                data = $tree.data();
+            return function (e, offset, mousePosition) {
+                var $dragEl = $(this), success = false;
+                $displays.each(function () {
+                    var $targetDisplay = $(this),
+                        $indicator;
+                    if ($targetDisplay.droppable('isOver', mousePosition)) {
+                        $indicator = $dragEl.find('[data-role="indicator"]');
+                        data.style.dropAsChildIcon ? $indicator.addClass(data.style.dropAsChildIcon) : $indicator.text('+');
+                        success = true;
+                        return false;
+                    } else {
+                        $dragEl.find('[data-role="indicator"]').removeClass(data.style.dropAsChildIcon).empty();
+                    }
+                });
+                $wrappers.each(function () {
+                    var $wrapper = $(this),
+                        $indicator, middle;
+                    if (!success && $wrapper.droppable('isOver', mousePosition)) {
+                        middle = $wrapper.position().top + ($wrapper.outerHeight() / 2);
+                        if (mousePosition.y < middle) {
+                            $wrapper.addClass(data.style.dropAbove).removeClass(data.style.dropBelow);
+                        } else {
+                            $wrapper.addClass(data.style.dropBelow).removeClass(data.style.dropAbove);
+                        }
+                    } else {
+                        $wrapper.removeClass(data.style.dropAbove).removeClass(data.style.dropBelow);
+                    }
+                });
+            };
+        },
+
+        createDragStopHandler: function ($tree, $sourceNode, $sourceDisplay) {
+            var $displays = gj.tree.plugins.dragAndDrop.private.getTargetDisplays($tree, $sourceNode, $sourceDisplay),
                 $wrappers = gj.tree.plugins.dragAndDrop.private.getTargetWrappers($tree, $sourceNode),
-	            data = $tree.data();
-	        return function (e, mousePosition) {
+                data = $tree.data();
+            return function (e, mousePosition) {
                 var success = false, record, $targetNode, $sourceParentNode, parent;
-	            $(this).draggable('destroy').remove();
-	            $displays.each(function () {
-	                var $targetDisplay = $(this), $ul;
-	                if ($targetDisplay.droppable('isOver', mousePosition)) {
-	                    $targetNode = $targetDisplay.closest('li');
-	                    $sourceParentNode = $sourceNode.parent('ul').parent('li');
-	                    $ul = $targetNode.children('ul');
-	                    if ($ul.length === 0) {
-	                        $ul = $('<ul />').addClass(data.style.list);
-	                        $targetNode.append($ul);
-	                    }
-	                    if (gj.tree.plugins.dragAndDrop.events.nodeDrop($tree, $sourceNode.data('id'), $targetNode.data('id'), $ul.children('li').length + 1) !== false) {
+                $(this).draggable('destroy').remove();
+                $displays.each(function () {
+                    var $targetDisplay = $(this), $ul;
+                    if ($targetDisplay.droppable('isOver', mousePosition)) {
+                        $targetNode = $targetDisplay.closest('li');
+                        $sourceParentNode = $sourceNode.parent('ul').parent('li');
+                        $ul = $targetNode.children('ul');
+                        if ($ul.length === 0) {
+                            $ul = $('<ul />').addClass(data.style.list);
+                            $targetNode.append($ul);
+                        }
+                        if (gj.tree.plugins.dragAndDrop.events.nodeDrop($tree, $sourceNode.data('id'), $targetNode.data('id'), $ul.children('li').length + 1) !== false) {
                             $ul.append($sourceNode);
 
                             //BEGIN: Change node position inside the backend data
@@ -12215,22 +12243,22 @@ gj.tree.plugins.dragAndDrop = {
                             parent[data.childrenField].push(record);
                             //END
 
-	                        gj.tree.plugins.dragAndDrop.private.refresh($tree, $sourceNode, $targetNode, $sourceParentNode);
-	                    }
-	                    success = true;
-	                    return false;
-	                }
-	                $targetDisplay.droppable('destroy');
-	            });
-	            if (!success) {
-	                $wrappers.each(function () {
-	                    var $targetWrapper = $(this), prepend, orderNumber, sourceNodeId;
-	                    if ($targetWrapper.droppable('isOver', mousePosition)) {
-	                        $targetNode = $targetWrapper.closest('li');
-	                        $sourceParentNode = $sourceNode.parent('ul').parent('li');
-	                        prepend = mousePosition.y < ($targetWrapper.position().top + ($targetWrapper.outerHeight() / 2));
-	                        sourceNodeId = $sourceNode.data('id');
-	                        orderNumber = $targetNode.prevAll('li:not([data-id="' + sourceNodeId + '"])').length + (prepend ? 1 : 2);
+                            gj.tree.plugins.dragAndDrop.private.refresh($tree, $sourceNode, $targetNode, $sourceParentNode);
+                        }
+                        success = true;
+                        return false;
+                    }
+                    $targetDisplay.droppable('destroy');
+                });
+                if (!success) {
+                    $wrappers.each(function () {
+                        var $targetWrapper = $(this), prepend, orderNumber, sourceNodeId;
+                        if ($targetWrapper.droppable('isOver', mousePosition)) {
+                            $targetNode = $targetWrapper.closest('li');
+                            $sourceParentNode = $sourceNode.parent('ul').parent('li');
+                            prepend = mousePosition.y < ($targetWrapper.position().top + ($targetWrapper.outerHeight() / 2));
+                            sourceNodeId = $sourceNode.data('id');
+                            orderNumber = $targetNode.prevAll('li:not([data-id="' + sourceNodeId + '"])').length + (prepend ? 1 : 2);
                             if (gj.tree.plugins.dragAndDrop.events.nodeDrop($tree, sourceNodeId, $targetNode.parent('ul').parent('li').data('id'), orderNumber) !== false) {
                                 //BEGIN: Change node position inside the backend data
                                 record = $tree.getDataById($sourceNode.data('id'));
@@ -12238,61 +12266,60 @@ gj.tree.plugins.dragAndDrop = {
                                 $tree.getDataById($targetNode.parent().data('id'))[data.childrenField].splice($targetNode.index() + (prepend ? 0 : 1), 0, record);
                                 //END
 
-	                            if (prepend) {
+                                if (prepend) {
                                     $sourceNode.insertBefore($targetNode);
-	                            } else {
-	                                $sourceNode.insertAfter($targetNode);
+                                } else {
+                                    $sourceNode.insertAfter($targetNode);
                                 }
 
                                 gj.tree.plugins.dragAndDrop.private.refresh($tree, $sourceNode, $targetNode, $sourceParentNode);
-	                        }
-	                        return false;
-	                    }
-	                    $targetWrapper.droppable('destroy');
-	                });
+                            }
+                            return false;
+                        }
+                        $targetWrapper.droppable('destroy');
+                    });
                 }
-	        }
-	    },
-
-	    refresh: function ($tree, $sourceNode, $targetNode, $sourceParentNode) {
-	        var data = $tree.data();
-	        gj.tree.plugins.dragAndDrop.private.refreshNode($tree, $targetNode);
-	        gj.tree.plugins.dragAndDrop.private.refreshNode($tree, $sourceParentNode);
-	        gj.tree.plugins.dragAndDrop.private.refreshNode($tree, $sourceNode);
-	        $sourceNode.find('li[data-role="node"]').each(function () {
-	            gj.tree.plugins.dragAndDrop.private.refreshNode($tree, $(this));
-	        });
-	        $targetNode.children('[data-role="wrapper"]').removeClass(data.style.dropAbove).removeClass(data.style.dropBelow);
+            }
         },
 
-	    refreshNode: function ($tree, $node) {
-	        var $wrapper = $node.children('[data-role="wrapper"]'),
-	            $expander = $wrapper.children('[data-role="expander"]'),
-	            $spacer = $wrapper.children('[data-role="spacer"]'),
-	            $list = $node.children('ul'),
+        refresh: function ($tree, $sourceNode, $targetNode, $sourceParentNode) {
+            var data = $tree.data();
+            gj.tree.plugins.dragAndDrop.private.refreshNode($tree, $targetNode);
+            gj.tree.plugins.dragAndDrop.private.refreshNode($tree, $sourceParentNode);
+            gj.tree.plugins.dragAndDrop.private.refreshNode($tree, $sourceNode);
+            $sourceNode.find('li[data-role="node"]').each(function () {
+                gj.tree.plugins.dragAndDrop.private.refreshNode($tree, $(this));
+            });
+            $targetNode.children('[data-role="wrapper"]').removeClass(data.style.dropAbove).removeClass(data.style.dropBelow);
+        },
+
+        refreshNode: function ($tree, $node) {
+            var $wrapper = $node.children('[data-role="wrapper"]'),
+                $expander = $wrapper.children('[data-role="expander"]'),
+                $spacer = $wrapper.children('[data-role="spacer"]'),
+                $list = $node.children('ul'),
                 data = $tree.data(),
-	            level = $node.parentsUntil('[data-type="tree"]', 'ul').length;
+                level = $node.parentsUntil('[data-type="tree"]', 'ul').length;
 
-	        if ($list.length && $list.children().length) {
-	            if ($list.is(':visible')) {
-	                $expander.empty().append(data.icons.collapse);
-	            } else {
-	                $expander.empty().append(data.icons.expand);
-	            }
-	        } else {
-	            $expander.empty();
-	        }
-	        $wrapper.removeClass(data.style.dropAbove).removeClass(data.style.dropBelow);
+            if ($list.length && $list.children().length) {
+                if ($list.is(':visible')) {
+                    $expander.empty().append(data.icons.collapse);
+                } else {
+                    $expander.empty().append(data.icons.expand);
+                }
+            } else {
+                $expander.empty();
+            }
+            $wrapper.removeClass(data.style.dropAbove).removeClass(data.style.dropBelow);
 
-	        $spacer.css('width', (data.indentation * (level - 1)));
-	    }
-	},
+            $spacer.css('width', (data.indentation * (level - 1)));
+        }
+    },
 
-	public: {
-	},
+    public: {},
 
-	events: {
-	    /**
+    events: {
+        /**
          * Event fires when the node is dropped.
          * @event nodeDrop
          * @param {object} e - event data
@@ -12316,23 +12343,23 @@ gj.tree.plugins.dragAndDrop = {
          *     });
          * </script>
          */
-	    nodeDrop: function ($tree, id, parentId, orderNumber) {
-	        return $tree.triggerHandler('nodeDrop', [id, parentId, orderNumber]);
+        nodeDrop: function ($tree, id, parentId, orderNumber) {
+            return $tree.triggerHandler('nodeDrop', [id, parentId, orderNumber]);
         }
     },
 
-	configure: function ($tree) {
-		$.extend(true, $tree, gj.tree.plugins.dragAndDrop.public);
-		if ($tree.data('dragAndDrop') && gj.draggable && gj.droppable) {
-			$tree.on('nodeDataBound', function (e, $node) {
-				gj.tree.plugins.dragAndDrop.private.nodeDataBound($tree, $node);
-			});
-		}
-	}
+    configure: function ($tree) {
+        $.extend(true, $tree, gj.tree.plugins.dragAndDrop.public);
+        if ($tree.data('dragAndDrop') && gj.draggable && gj.droppable) {
+            $tree.on('nodeDataBound', function (e, $node) {
+                gj.tree.plugins.dragAndDrop.private.nodeDataBound($tree, $node);
+            });
+        }
+    }
 };
 
-/** 
- * @widget Tree 
+/**
+ * @widget Tree
  * @plugin Lazy Loading
  */
 gj.tree.plugins.lazyLoading = {
@@ -12351,18 +12378,18 @@ gj.tree.plugins.lazyLoading = {
             },
 
             /** Enables lazy loading
-              * @type Boolean
-              * @default false
-              * @example Material.Design <!-- tree -->
-              * <div id="tree"></div>
-              * <script>
-              *     $('#tree').tree({
-              *         dataSource: '/Locations/LazyGet',
-              *         primaryKey: 'id',
-              *         lazyLoading: true
-              *     });
-              * </script>
-              */
+             * @type Boolean
+             * @default false
+             * @example Material.Design <!-- tree -->
+             * <div id="tree"></div>
+             * <script>
+             *     $('#tree').tree({
+             *         dataSource: '/Locations/LazyGet',
+             *         primaryKey: 'id',
+             *         lazyLoading: true
+             *     });
+             * </script>
+             */
             lazyLoading: false
         }
     },
@@ -12393,7 +12420,7 @@ gj.tree.plugins.lazyLoading = {
                         $tree.addNode(response[i], $list);
                     }
                     $expander = $node.find('>[data-role="wrapper"]>[data-role="expander"]'),
-                    $expander.attr('data-mode', 'open');
+                        $expander.attr('data-mode', 'open');
                     $expander.empty().append(data.icons.collapse);
                     gj.tree.events.dataBound($tree);
                 }
@@ -12407,7 +12434,7 @@ gj.tree.plugins.lazyLoading = {
             if (!$children || !$children.length) {
                 if (typeof (data.dataSource) === 'string') {
                     params[data.paramNames.parentId] = id;
-                    ajaxOptions = { url: data.dataSource, data: params };
+                    ajaxOptions = {url: data.dataSource, data: params};
                     if ($tree.xhr) {
                         $tree.xhr.abort();
                     }
@@ -12434,8 +12461,8 @@ gj.tree.plugins.lazyLoading = {
 };
 
 /* global window alert jQuery */
-/** 
- * @widget Checkbox 
+/**
+ * @widget Checkbox
  * @plugin Base
  */
 gj.checkbox = {
@@ -12444,7 +12471,7 @@ gj.checkbox = {
 
 gj.checkbox.config = {
     base: {
-        /** The name of the UI library that is going to be in use. Currently we support only Material Design and Bootstrap. 
+        /** The name of the UI library that is going to be in use. Currently we support only Material Design and Bootstrap.
          * @additionalinfo The css files for Bootstrap should be manually included to the page if you use bootstrap as uiLibrary.
          * @type string (materialdesign|bootstrap|bootstrap4)
          * @default 'materialdesign'
@@ -12504,7 +12531,7 @@ gj.checkbox.config = {
          * </script>
          */
         uiLibrary: 'materialdesign',
-        
+
         /** The name of the icons library that is going to be in use. Currently we support Material Icons, Font Awesome and Glyphicons.
          * @additionalinfo If you use Bootstrap 3 as uiLibrary, then the iconsLibrary is set to Glyphicons by default.<br/>
          * If you use Material Design as uiLibrary, then the iconsLibrary is set to Material Icons by default.<br/>
@@ -12533,7 +12560,7 @@ gj.checkbox.config = {
             wrapperCssClass: 'gj-checkbox-md',
             spanCssClass: undefined
         }
-        
+
     },
 
     bootstrap: {
@@ -12762,7 +12789,7 @@ gj.checkbox.widget.constructor = gj.checkbox.widget;
     };
 })(jQuery);
 /* global window alert jQuery */
-/** 
+/**
  * @widget Editor
  * @plugin Base
  */
@@ -12801,7 +12828,7 @@ gj.editor.config = {
          */
         width: undefined,
 
-        /** The name of the UI library that is going to be in use. Currently we support only Material Design and Bootstrap. 
+        /** The name of the UI library that is going to be in use. Currently we support only Material Design and Bootstrap.
          * @additionalinfo The css files for Bootstrap should be manually included to the page if you use bootstrap as uiLibrary.
          * @type string (materialdesign|bootstrap|bootstrap4)
          * @default 'materialdesign'
@@ -13048,7 +13075,7 @@ gj.editor.methods = {
 
     updateToolbar: function ($editor, $toolbar) {
         var data = $editor.data();
-        $buttons = $toolbar.find('[role]').each(function() {
+        $buttons = $toolbar.find('[role]').each(function () {
             var $btn = $(this),
                 cmd = $btn.attr('role');
 
@@ -13219,9 +13246,9 @@ gj.editor.messages['en-us'] = {
 };
 /* global window alert jQuery gj */
 /**
-  * @widget DropDown
-  * @plugin Base
-  */
+ * @widget DropDown
+ * @plugin Base
+ */
 gj.dropdown = {
     plugins: {}
 };
@@ -13652,8 +13679,7 @@ gj.dropdown.methods = {
 
     filter: function ($dropdown) {
         var i, record, data = $dropdown.data();
-        if (!data.dataSource)
-        {
+        if (!data.dataSource) {
             data.dataSource = [];
         } else if (typeof data.dataSource[0] === 'string') {
             for (i = 0; i < data.dataSource.length; i++) {
@@ -13692,7 +13718,7 @@ gj.dropdown.methods = {
                     gj.dropdown.methods.select($dropdown, value);
                 });
                 $list.append($item);
-                
+
                 $dropdown.append('<option value="' + value + '">' + text + '</option>');
 
                 if (selected) {
@@ -13976,9 +14002,9 @@ gj.dropdown.widget.prototype.getHTMLConfig = gj.dropdown.methods.getHTMLConfig;
 })(jQuery);
 /* global window alert jQuery gj */
 /**
-  * @widget DatePicker
-  * @plugin Base
-  */
+ * @widget DatePicker
+ * @plugin Base
+ */
 gj.datepicker = {
     plugins: {}
 };
@@ -14746,7 +14772,7 @@ gj.datepicker.methods = {
         $datepicker.val(data.value).addClass(data.style.input).attr('role', 'input');
 
         data.fontSize && $datepicker.css('font-size', data.fontSize);
-        
+
         if (data.uiLibrary === 'bootstrap' || data.uiLibrary === 'bootstrap4' || data.uiLibrary === 'bootstrap5') {
             if (data.size === 'small') {
                 $wrapper.addClass('input-group-sm');
@@ -14818,7 +14844,7 @@ gj.datepicker.methods = {
     createCalendar: function ($datepicker, data) {
         var date, $body, $footer, $btnCancel, $btnOk,
             $calendar = $('<div role="calendar" type="month"/>').addClass(data.style.calendar).attr('guid', $datepicker.attr('data-guid'));
-        
+
         data.fontSize && $calendar.css('font-size', data.fontSize);
 
         date = gj.core.parseDate(data.value, data.format, data.locale);
@@ -14840,7 +14866,9 @@ gj.datepicker.methods = {
             $footer = $('<div role="footer" class="' + data.style.footer + '" />');
 
             $btnCancel = $('<button class="' + data.style.button + '">' + gj.core.messages[data.locale].cancel + '</button>');
-            $btnCancel.on('click', function () { $datepicker.close(); });
+            $btnCancel.on('click', function () {
+                $datepicker.close();
+            });
             $footer.append($btnCancel);
 
             $btnOk = $('<button class="' + data.style.button + '">' + gj.core.messages[data.locale].ok + '</button>');
@@ -14908,7 +14936,7 @@ gj.datepicker.methods = {
         $navigator.append($('<div role="period"></div>').on('click', gj.datepicker.methods.changePeriod($datepicker, data)));
         $navigator.append($('<div>' + data.icons.nextMonth + '</div>').on('click', gj.datepicker.methods.next($datepicker, data)));
         $body.append($navigator);
-        
+
         $row = $('<tr role="week-days" />');
         if (data.calendarWeeks) {
             $row.append('<th><div>&nbsp;</div></th>');
@@ -14925,15 +14953,16 @@ gj.datepicker.methods = {
     },
 
     renderMonth: function ($datepicker, $calendar, data) {
-        var weekDay, selectedDay, day, month, year, daysInMonth, total, firstDayPosition, i, now, prevMonth, nextMonth, $cell, $day, date,
+        var weekDay, selectedDay, day, month, year, daysInMonth, total, firstDayPosition, i, now, prevMonth, nextMonth,
+            $cell, $day, date,
             $body = $calendar.children('[role="body"]'),
             $table = $('<table/>'),
             $tbody = $('<tbody/>'),
             period = gj.core.messages[data.locale].titleFormat;
-        
+
         $body.off().empty();
         gj.datepicker.methods.createNavigation($datepicker, $body, $table, data);
-        
+
         month = parseInt($calendar.attr('month'), 10);
         year = parseInt($calendar.attr('year'), 10);
 
@@ -14964,7 +14993,9 @@ gj.datepicker.methods = {
                 if (data.selectOtherMonths && gj.datepicker.methods.isSelectable(data, date)) {
                     $cell.addClass('gj-cursor-pointer').attr('day', day).attr('month', prevMonth.month).attr('year', prevMonth.year);
                     $day.on('click', gj.datepicker.methods.dayClickHandler($datepicker, $calendar, data, date));
-                    $day.on('mousedown', function (e) { e.stopPropagation() });
+                    $day.on('mousedown', function (e) {
+                        e.stopPropagation()
+                    });
                 } else {
                     $cell.addClass('disabled');
                 }
@@ -14995,7 +15026,9 @@ gj.datepicker.methods = {
             if (gj.datepicker.methods.isSelectable(data, date)) {
                 $cell.addClass('gj-cursor-pointer');
                 $day.on('click', gj.datepicker.methods.dayClickHandler($datepicker, $calendar, data, date));
-                $day.on('mousedown', function (e) { e.stopPropagation() });
+                $day.on('mousedown', function (e) {
+                    e.stopPropagation()
+                });
             } else {
                 $cell.addClass('disabled');
             }
@@ -15017,7 +15050,9 @@ gj.datepicker.methods = {
                 if (data.selectOtherMonths && gj.datepicker.methods.isSelectable(data, date)) {
                     $cell.addClass('gj-cursor-pointer').attr('day', i).attr('month', nextMonth.month).attr('year', nextMonth.year);
                     $day.on('click', gj.datepicker.methods.dayClickHandler($datepicker, $calendar, data, date));
-                    $day.on('mousedown', function (e) { e.stopPropagation() });
+                    $day.on('mousedown', function (e) {
+                        e.stopPropagation()
+                    });
                 } else {
                     $cell.addClass('disabled');
                 }
@@ -15046,7 +15081,7 @@ gj.datepicker.methods = {
         var year, i, m, $month,
             $table = $calendar.find('>[role="body"]>table'),
             $tbody = $table.children('tbody');
-        
+
         $table.children('thead').hide();
 
         year = parseInt($calendar.attr('year'), 10);
@@ -15072,7 +15107,7 @@ gj.datepicker.methods = {
         var year, decade, i, y, $year,
             $table = $calendar.find('>[role="body"]>table'),
             $tbody = $table.children('tbody');
-        
+
         $table.children('thead').hide();
 
         year = parseInt($calendar.attr('year'), 10);
@@ -15083,7 +15118,7 @@ gj.datepicker.methods = {
 
         $tbody.empty();
 
-        for (i = decade - 1; i <= decade + 10 ; i += 4) {
+        for (i = decade - 1; i <= decade + 10; i += 4) {
             $row = $('<tr />');
             for (y = i; y <= i + 3; y++) {
                 $year = $('<div>' + y + '</div>');
@@ -15099,7 +15134,7 @@ gj.datepicker.methods = {
         var year, century, i, d, $decade,
             $table = $calendar.find('>[role="body"]>table'),
             $tbody = $table.children('tbody');
-        
+
         $table.children('thead').hide();
 
         year = parseInt($calendar.attr('year'), 10);
@@ -15202,13 +15237,13 @@ gj.datepicker.methods = {
     getPrevMonth: function (month, year) {
         date = new Date(year, month, 1);
         date.setMonth(date.getMonth() - 1);
-        return { month: date.getMonth(), year: date.getFullYear() };
+        return {month: date.getMonth(), year: date.getFullYear()};
     },
 
     getNextMonth: function (month, year) {
         date = new Date(year, month, 1);
         date.setMonth(date.getMonth() + 1);
-        return { month: date.getMonth(), year: date.getFullYear() };
+        return {month: date.getMonth(), year: date.getFullYear()};
     },
 
     prev: function ($datepicker, data) {
@@ -15402,8 +15437,7 @@ gj.datepicker.methods = {
         return function (e) {
             var month, year, day, index, $new, $active, e = e || window.event;
 
-            if (window.getComputedStyle($calendar[0]).display !== 'none')
-            {
+            if (window.getComputedStyle($calendar[0]).display !== 'none') {
                 $active = gj.datepicker.methods.getActiveCell($calendar);
                 if (e.keyCode == '38') { // up
                     index = $active.index();
@@ -15710,9 +15744,9 @@ gj.datepicker.widget.constructor = gj.datepicker.widget;
 })(jQuery);
 /* global window alert jQuery gj */
 /**
-  * @widget TimePicker
-  * @plugin Base
-  */
+ * @widget TimePicker
+ * @plugin Base
+ */
 gj.timepicker = {
     plugins: {}
 };
@@ -16073,11 +16107,13 @@ gj.timepicker.methods = {
             }
             $clock.append($header);
         }
-        
+
         $clock.append($body);
 
         if (data.footer) {
-            $btnCancel.on('click', function () { $timepicker.close(); });
+            $btnCancel.on('click', function () {
+                $timepicker.close();
+            });
             $footer.append($btnCancel);
             $btnOk.on('click', gj.timepicker.methods.setTime($timepicker, $clock));
             $footer.append($btnOk);
@@ -16147,7 +16183,7 @@ gj.timepicker.methods = {
         }
     },
 
-    updateArrow: function(e, $timepicker, $clock, data) {
+    updateArrow: function (e, $timepicker, $clock, data) {
         var rect, value,
             mouseX = $timepicker.mouseX(e),
             mouseY = $timepicker.mouseY(e),
@@ -16321,7 +16357,7 @@ gj.timepicker.methods = {
 
         $clock.find('[role="header"] [role="hour"]').removeClass('selected');
         $clock.find('[role="header"] [role="minute"]').addClass('selected');
-        
+
         data.dialMode = 'minutes';
 
         gj.timepicker.methods.update($timepicker, $clock, data);
@@ -16549,14 +16585,13 @@ gj.timepicker.widget.constructor = gj.timepicker.widget;
 })(jQuery);
 /* global window alert jQuery gj */
 /**
-  * @widget DateTimePicker
-  * @plugin Base
-  */
+ * @widget DateTimePicker
+ * @plugin Base
+ */
 gj.datetimepicker = {
     plugins: {},
     messages: {
-        'en-us': {
-        }
+        'en-us': {}
     }
 };
 
@@ -16769,7 +16804,7 @@ gj.datetimepicker.config = {
          * </script>
          */
         size: 'default',
-        
+
         /** The language that needs to be in use.
          * @type string
          * @default 'en-us'
@@ -17152,14 +17187,13 @@ gj.datetimepicker.widget.prototype.getConfig = gj.datetimepicker.methods.getConf
 })(jQuery);
 /* global window alert jQuery gj */
 /**
-  * @widget Slider
-  * @plugin Base
-  */
+ * @widget Slider
+ * @plugin Base
+ */
 gj.slider = {
     plugins: {},
     messages: {
-        'en-us': {
-        }
+        'en-us': {}
     }
 };
 
@@ -17343,7 +17377,7 @@ gj.slider.methods = {
         if (data.width) {
             wrapper.style.width = data.width + 'px';
         }
-        
+
         gj.core.addClasses(wrapper, data.style.wrapper);
 
         track = $slider[0].querySelector('[role="track"]');
@@ -17373,12 +17407,14 @@ gj.slider.methods = {
             data.value = data.min;
         }
         gj.slider.methods.value($slider, data, data.value);
-        
+
         gj.documentManager.subscribeForEvent('mouseup', $slider.data('guid'), gj.slider.methods.createMouseUpHandler($slider, handle, data));
         handle.addEventListener('mousedown', gj.slider.methods.createMouseDownHandler(handle, data));
         gj.documentManager.subscribeForEvent('mousemove', $slider.data('guid'), gj.slider.methods.createMouseMoveHandler($slider, track, handle, progress, data));
 
-        handle.addEventListener('click', function (e) { e.stopPropagation(); });
+        handle.addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
         wrapper.addEventListener('click', gj.slider.methods.createClickHandler($slider, track, handle, data));
     },
 
@@ -17582,14 +17618,13 @@ gj.slider.widget.constructor = gj.slider.widget;
 })(jQuery);
 /* global window alert jQuery gj */
 /**
-  * @widget ColorPicker
-  * @plugin Base
-  */
+ * @widget ColorPicker
+ * @plugin Base
+ */
 gj.colorpicker = {
     plugins: {},
     messages: {
-        'en-us': {
-        }
+        'en-us': {}
     }
 };
 

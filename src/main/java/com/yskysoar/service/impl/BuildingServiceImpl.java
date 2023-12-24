@@ -1,6 +1,7 @@
 package com.yskysoar.service.impl;
 
 import com.yskysoar.entity.Building;
+import com.yskysoar.entity.Dormitory;
 import com.yskysoar.mapper.BuildingMapper;
 import com.yskysoar.mapper.DormitoryMapper;
 import com.yskysoar.mapper.StudentMapper;
@@ -109,6 +110,16 @@ public class BuildingServiceImpl implements BuildingService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 根据性别展示寝室
+     * @param gender 性别
+     * @return 寝室列表
+     */
+    @Override
+    public List<Dormitory> dormitoryListByGender(String gender) {
+        return buildingMapper.dormitoryListByGender(gender);
     }
 
 

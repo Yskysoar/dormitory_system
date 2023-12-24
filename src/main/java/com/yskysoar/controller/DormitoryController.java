@@ -1,5 +1,6 @@
 package com.yskysoar.controller;
 
+import com.yskysoar.entity.Building;
 import com.yskysoar.entity.Dormitory;
 import com.yskysoar.entity.Student;
 import com.yskysoar.service.BuildingService;
@@ -7,10 +8,7 @@ import com.yskysoar.service.DormitoryService;
 import com.yskysoar.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -21,6 +19,7 @@ import java.util.List;
  * @createTime 2023-06-23 19:39
  * @description 寝室相关业务的控制器
  */
+
 @Controller
 @RequestMapping("/dormitory")
 public class DormitoryController {
@@ -60,6 +59,20 @@ public class DormitoryController {
         modelAndView.addObject("list", this.dormitoryService.search(key, value));//返回模糊查询的结果集
         modelAndView.addObject("buildingList", this.buildingService.list());//返回寝室对应寝室楼的结果集
         return modelAndView;
+    }
+
+    /**
+     * 获取所有 男/女 寝室号列表
+     * @return 视图解析器
+     */
+    @GetMapping(path = "/dormitoryList", produces = "application/json")
+    @ResponseBody
+    public List<Dormitory> dormitoryList(@RequestParam("gender") String gender) {
+        List<Building> buildingList = this.buildingService.search("introduction", gender);//获取所有 男/女 寝室楼列表
+        if (buildingList != null && !buildingList.isEmpty()) {
+            return buildingService.dormitoryListByGender(gender);//获取所有 男/女 寝室号列表
+        }
+        return new ArrayList<>();
     }
 
     /**

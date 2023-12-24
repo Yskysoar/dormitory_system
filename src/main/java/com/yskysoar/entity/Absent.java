@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * @author Yskysoar
  * @createTime 2023-06-23 21:57
- * @description
+ * @description 缺寝信息的实体类
  */
 @Data
 public class Absent {
